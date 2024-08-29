@@ -1,0 +1,10 @@
+services:
+  db:
+    build: ./infra/db
+    restart: always
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root # ローカル環境での利用を想定して仮のパスワードを設定している
+    ports:
+      - "43306:3306"  # ポートフォワーディング(ローカル:43306、コンテナ:3306)
