@@ -1,1 +1,1 @@
-# Book-Management-API
+# School-API
