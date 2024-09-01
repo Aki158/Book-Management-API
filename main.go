@@ -17,5 +17,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/hello", helloHandler)
 	fmt.Println("Server Start Up........")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	// httpsサーバーを起動する
+	http.ListenAndServeTLS(":8080", "server.crt", "server.key", nil)
 }
