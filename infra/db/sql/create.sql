@@ -1,6 +1,3 @@
-CREATE SCHEMA school;
-USE school;
-
 CREATE TABLE teachers (
     teacher_id INT PRIMARY KEY
 );
