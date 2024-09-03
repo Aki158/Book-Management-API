@@ -75,7 +75,7 @@ GET /students
 リクエスト例
 
 ```bash
-curl -k -i 'https://127.0.0.1:48080/students?facilitator_id=1
+curl -k -i 'https://127.0.0.1:48080/students?facilitator_id=1'
 ```
 
 ### レスポンス
