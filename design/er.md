@@ -1,8 +1,8 @@
 ```mermaid
 erDiagram
-  teachers ||--o{ students : "1人の教師は複数の生徒を持つ"
-  teachers ||--o{ classes: "1人の教師は複数のクラスを持つ"
-  classes ||--o{ students: "1つのクラスは複数の生徒を持つ"
+  teachers ||--o{ students : "has"
+  teachers ||--o{ classes: "has"
+  classes ||--o{ students: "has"
 
   teachers {
     int id "PK"
