@@ -23,6 +23,31 @@ func (db *Database) Connect() {
 	db.UseDb = database
 }
 
+func (db *Database) Read(facilitatorId int, page int, limit int, sort string, order string, name_like string, loginId_like string) ([]structs.Student) {
+	var responseStudents []structs.Student
+
+	// クエリ実行に必要な値を取得する
+	query, args := GetSqlQuery(facilitatorId, page, limit, sort, order, name_like, loginId_like)
+	
+	res, err := db.UseDb.Query(query, args...)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// resの取得結果をresponseStudentsに入れる
+	for res.Next() {
+		var student structs.Student
+
+		err = res.Scan(&student.Id, &student.Name, &student.LoginId, &student.ClassRoom.Id, &student.ClassRoom.Name)
+		if err != nil {
+			log.Println(err)
+		}
+
+		responseStudents = append(responseStudents, student)
+	}
+	return responseStudents
+}
+
 func GetSqlQuery(facilitatorId int, page int, limit int, sort string, order string, name_like string, loginId_like string) (string, []interface{}) {
 	var args []interface{}
 	skipRows := (page - 1) * limit
@@ -67,29 +92,4 @@ func GetSqlQuery(facilitatorId int, page int, limit int, sort string, order stri
 	sqlQuery += fmt.Sprintf("ORDER BY %s %s LIMIT %d OFFSET %d;", sortTarget, order, limit, skipRows)
 
 	return sqlQuery, args
-}
-
-func (db *Database) Read(facilitatorId int, page int, limit int, sort string, order string, name_like string, loginId_like string) ([]structs.Student) {
-	var responseStudents []structs.Student
-
-	// クエリ実行に必要な値を取得する
-	query, args := GetSqlQuery(facilitatorId, page, limit, sort, order, name_like, loginId_like)
-	
-	res, err := db.UseDb.Query(query, args...)
-	if err != nil {
-		log.Println(err)
-	}
-
-	// resの取得結果をresponseStudentsに入れる
-	for res.Next() {
-		var student structs.Student
-
-		err = res.Scan(&student.Id, &student.Name, &student.LoginId, &student.ClassRoom.Id, &student.ClassRoom.Name)
-		if err != nil {
-			log.Println(err)
-		}
-
-		responseStudents = append(responseStudents, student)
-	}
-	return responseStudents
 }
