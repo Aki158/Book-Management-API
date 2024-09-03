@@ -14,7 +14,7 @@ type Database struct {
 }
 
 func (db *Database) Connect() {
-	database, err := sql.Open("mysql", "testUser:testPassword@tcp(db:3306)/school?charset=utf8mb4")
+	database, err := sql.Open("mysql", "localUser:localPassword@tcp(db:3306)/school?charset=utf8mb4")
 	if err != nil {
 		log.Println(err)
 		return
