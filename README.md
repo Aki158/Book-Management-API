@@ -65,12 +65,12 @@ GET /students
 
 | パラメーター名 | 型 | 必須/任意 | デフォルト値 | 概要 |
 | ------- | ------- | ------- | ------- | ------- |
-| facilitator_id | int | 必須 |  | 教師ID |
-| page | int | 任意 |  | ページネーションのページ数 |
-| limit | int | 任意 | 5 | ページネーションの1ページあたりの表示数 |
-| sort | string | 任意 | id | ソートのキーとしてレスポンスにある以下のフィールドを指定できる<br>・id: 生徒ID<br>・name: 生徒名<br>・loginId: ログインID |
-| order | string | 任意 | asc | ソートの昇順=asc, 降順=descを指定する |
-| {key}_like | string | 任意 |  | 指定したレスポンスのフィールドによる部分一致検索をします。<br>{key}にはレスポンスにある以下のフィールドを指定できる。<br>・name: 生徒名<br>・loginId: ログインID |
+| `facilitator_id` | int | 必須 |  | 教師ID |
+| `page` | int | 任意 |  | ページネーションのページ数 |
+| `limit` | int | 任意 | 5 | ページネーションの1ページあたりの表示数 |
+| `sort` | string | 任意 | id | ソートのキーとしてレスポンスにある以下のフィールドを指定できる<br>・id: 生徒ID<br>・name: 生徒名<br>・loginId: ログインID |
+| `order` | string | 任意 | asc | ソートの昇順=asc, 降順=descを指定する |
+| `{key}_like` | string | 任意 |  | 指定したレスポンスのフィールドによる部分一致検索をします。<br>{key}にはレスポンスにある以下のフィールドを指定できる。<br>・name: 生徒名<br>・loginId: ログインID |
 
 リクエスト例
 
@@ -82,14 +82,14 @@ curl -k -i 'https://127.0.0.1:48080/students?facilitator_id=1
 
 | フィールド | 型 | 概要 |
 | ------- | ------- | ------- |
-| $.students | array |  |
-| $.students[*].id | int | 生徒ID |
-| $.students[*].name | string | 生徒名 |
-| $.students[*].loginId | string | ログインID |
-| $.students[*].classroom | array |  |
-| $.students[*].classroom[*].id | int | クラスID |
-| $.students[*].classroom[*].name | string | クラス名 |
-| $.totalCount | int | リクエストの条件に該当する件数 |
+| `$.students` | array |  |
+| `$.students[*].id` | int | 生徒ID |
+| `$.students[*].name` | string | 生徒名 |
+| `$.students[*].loginId` | string | ログインID |
+| `$.students[*].classroom` | array |  |
+| `$.students[*].classroom[*].id` | int | クラスID |
+| `$.students[*].classroom[*].name` | string | クラス名 |
+| `$.totalCount` | int | リクエストの条件に該当する件数 |
 
 レスポンス例
 
