@@ -1,10 +1,41 @@
 services:
   db:
-    build: ./infra/db
+    container_name: db
+    build:
+      context: .
+      dockerfile: ./infra/db/Dockerfile
     restart: always
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+      - ./infra/db/sql:/docker-entrypoint-initdb.d
+      - ./infra/db/my.cnf:/etc/mysql/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: root # ローカル環境での利用を想定して仮のパスワードを設定している
+      MYSQL_ROOT_PASSWORD: root_password # ローカル環境での利用を想定して仮のパスワードを設定している
+      MYSQL_DATABASE: "school"
+      MYSQL_USER: "testUser"
+      MYSQL_PASSWORD: "testPassword"
     ports:
-      - "43306:3306"  # ポートフォワーディング(ローカル:43306、コンテナ:3306)
+      - "43306:3306" # ポートフォワーディング(ローカル:43306、コンテナ:3306)
+    networks:
+      - school-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./infra/app/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "48080:8080" # ポートフォワーディング(ローカル:48080、コンテナ:8080)
+    networks:
+      - school-network
+
+networks:
+  school-network:
+    driver: bridge
