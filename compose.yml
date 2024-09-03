@@ -9,10 +9,10 @@ services:
       - ./infra/db/sql:/docker-entrypoint-initdb.d
       - ./infra/db/my.cnf:/etc/mysql/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: root_password # ローカル環境での利用を想定して仮のパスワードを設定している
+      MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: "school"
-      MYSQL_USER: "testUser"
-      MYSQL_PASSWORD: "testPassword"
+      MYSQL_USER: "localUser"
+      MYSQL_PASSWORD: "localPassword"
     ports:
       - "43306:3306" # ポートフォワーディング(ローカル:43306、コンテナ:3306)
     networks:
