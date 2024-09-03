@@ -72,7 +72,7 @@ func StudentsHandler(mydb *db.Database) http.HandlerFunc {
 		name_like := query.Get("name_like")
 		loginId_like := query.Get("loginId_like")
 		
-		response.StudentArr = mydb.Read(facilitatorId, page, limit, sort, order, name_like, loginId_like)		
+		response.StudentArr = mydb.Read(facilitatorId, page, limit, sort, order, name_like, loginId_like)
 		response.TotalCount = len(response.StudentArr)
 		// リクエストに該当する生徒が存在しない場合は、404 Not Found を返す
 		if response.TotalCount == 0 {
